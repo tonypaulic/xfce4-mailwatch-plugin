@@ -424,14 +424,14 @@ mailwatch_set_size(XfcePanelPlugin     *plugin,
      * main icon as a base for the mini icons to ensure they aren't too
      * large in the smaller dimension */
     mwp->pix_log[XFCE_MAILWATCH_LOG_INFO] =
-            mailwatch_get_mini_icon(GTK_WIDGET(plugin), GTK_STOCK_DIALOG_INFO,
+            mailwatch_get_mini_icon(GTK_WIDGET(plugin), "gtk-dialog-info",
                                     width < height ? width : height);
     mwp->pix_log[XFCE_MAILWATCH_LOG_WARNING] =
             mailwatch_get_mini_icon(GTK_WIDGET(plugin),
-                                    GTK_STOCK_DIALOG_WARNING,
+                                    "gtk-dialog-warning",
                                     width < height ? width : height);
     mwp->pix_log[XFCE_MAILWATCH_LOG_ERROR] = 
-            mailwatch_get_mini_icon(GTK_WIDGET(plugin), GTK_STOCK_DIALOG_ERROR,
+            mailwatch_get_mini_icon(GTK_WIDGET(plugin), "gtk-dialog-error",
                                     width < height ? width : height);
     
     pb = mailwatch_build_icon(mwp, mwp->newmail_icon_visible);
@@ -456,10 +456,10 @@ mailwatch_create(XfcePanelPlugin *plugin)
     mwp->mailwatch = xfce_mailwatch_new();
     
     if (G_UNLIKELY(!mwp->mailwatch)) {
-        xfce_message_dialog(NULL, _("Xfce Mailwatch"), GTK_STOCK_DIALOG_ERROR,
+        xfce_message_dialog(NULL, _("Xfce Mailwatch"), "gtk-dialog-error",
                 _("The mailwatch applet cannot be added to the panel."),
                 _("It is possible that your version of GLib does not have threads support."),
-                GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT, NULL);
+                "window-close", GTK_RESPONSE_ACCEPT, NULL);
         g_free(mwp);
         return NULL;
     }
@@ -771,12 +771,12 @@ mailwatch_view_log_clicked_cb(GtkWidget *widget,
     g_signal_connect(G_OBJECT(chk), "toggled",
                      G_CALLBACK(mailwatch_log_status_toggled_cb), mwp);
     
-    button = gtk_button_new_from_stock(GTK_STOCK_CLEAR);
+    button = gtk_button_new_from_stock("gtk-clear");
     gtk_widget_show( button );
     gtk_dialog_add_action_widget(GTK_DIALOG(mwp->log_dialog), button,
                                  XFCE_MAILWATCH_RESPONSE_CLEAR);
     
-    button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    button = gtk_button_new_from_stock("window-close");
     gtk_widget_show( button );
     gtk_dialog_add_action_widget(GTK_DIALOG(mwp->log_dialog), button,
                                  GTK_RESPONSE_ACCEPT);
@@ -829,8 +829,8 @@ mailwatch_iconbtn_clicked_cb(GtkWidget           *w,
     toplevel = gtk_widget_get_toplevel(w);
     chooser = exo_icon_chooser_dialog_new (_("Select Icon"),
                                            GTK_WINDOW(gtk_widget_get_toplevel(toplevel)),
-                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                           GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+                                           "gtk-cancel", GTK_RESPONSE_CANCEL,
+                                           "gtk-ok", GTK_RESPONSE_ACCEPT,
                                            NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(chooser), GTK_RESPONSE_ACCEPT);
     /* Preselect actually used icon */
@@ -962,13 +962,13 @@ mailwatch_help_clicked_cb(GtkWidget *w,
 
     dialog = xfce_message_dialog_new (parent,
                                       _("Online Documentation"),
-                                      GTK_STOCK_DIALOG_QUESTION,
+                                      "gtk-dialog-question",
                                       _("Do you want to read the manual online?"),
                                       _("You will be redirected to the documentation website "
                                         "where the help pages are maintained."),
-                                      GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
+                                      "gtk-cancel", GTK_RESPONSE_NO,
                                       XFCE_BUTTON_TYPE_MIXED,
-                                      GTK_STOCK_HELP, _("_Read Online"),
+                                      "gtk-help", _("_Read Online"),
                                       GTK_RESPONSE_YES,
                                       NULL);
 
@@ -1029,19 +1029,19 @@ mailwatch_create_options(XfcePanelPlugin     *plugin,
     gtk_container_set_border_width(GTK_CONTAINER(dlg), 2);
     gtk_window_set_icon_name(GTK_WINDOW(dlg), "xfce4-settings");
     
-    btn = gtk_button_new_from_stock(GTK_STOCK_HELP);
+    btn = gtk_button_new_from_stock("gtk-help");
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->action_area), btn, FALSE,
                        FALSE, 0);
     g_signal_connect(G_OBJECT(btn), "clicked",
                      G_CALLBACK(mailwatch_help_clicked_cb), mwp);
     
-    btn = xfce_mailwatch_custom_button_new(_("_View Log..."), GTK_STOCK_FIND);
+    btn = xfce_mailwatch_custom_button_new(_("_View Log..."), "gtk-find");
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->action_area), btn, FALSE,
                        FALSE, 0);
     g_signal_connect(G_OBJECT(btn), "clicked",
                      G_CALLBACK(mailwatch_view_log_clicked_cb), mwp);
     
-    btn = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+    btn = gtk_button_new_from_stock("window-close");
     gtk_dialog_add_action_widget(GTK_DIALOG(dlg), btn, GTK_RESPONSE_ACCEPT);
                      
     topvbox = gtk_vbox_new(FALSE, BORDER);
@@ -1287,7 +1287,7 @@ mailwatch_construct(XfcePanelPlugin *plugin)
     
 
     mi = gtk_image_menu_item_new_with_label(_("Update Now"));
-    img = gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
+    img = gtk_image_new_from_stock("gtk-refresh", GTK_ICON_SIZE_MENU);
     gtk_widget_show(img);
     gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(mi), img);
     gtk_widget_show(mi);

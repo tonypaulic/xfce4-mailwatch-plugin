@@ -64,10 +64,6 @@
 #include "mailwatch-utils.h"
 #include "mailwatch.h"
 
-#ifndef GTK_STOCK_DIRECTORY
-#define GTK_STOCK_DIRECTORY      GTK_STOCK_OPEN
-#endif
-
 #define BORDER                   8
 
 #define XFCE_MAILWATCH_IMAP_MAILBOX(ptr) ((XfceMailwatchIMAPMailbox *)ptr)
@@ -1393,16 +1389,16 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
         g_thread_yield();
     
     if(!imailbox->host || !imailbox->username) {
-        xfce_message_dialog(toplevel, _("Error"), GTK_STOCK_DIALOG_WARNING,
+        xfce_message_dialog(toplevel, _("Error"), "gtk-dialog-warning",
                             _("No server or username is set."),
                             _("The folder list cannot be retrieved until a server, username, and probably password are set.  Also be sure to check any security settings in the Advanced dialog."),
-                            GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT, NULL);
+                            "window-close", GTK_RESPONSE_ACCEPT, NULL);
         return;
     }
     
     dlg = gtk_dialog_new_with_buttons(_("Set New Mail Folders"), toplevel,
                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                      GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT,
+                                      "window-close", GTK_RESPONSE_ACCEPT,
                                       NULL);
     imailbox->folder_tree_dialog = dlg;
     topvbox = gtk_vbox_new(FALSE, BORDER/2);
@@ -1444,7 +1440,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     render = gtk_cell_renderer_pixbuf_new();
     gtk_tree_view_column_pack_start(col, render, FALSE);
     g_object_set(G_OBJECT(render),
-                 "stock-id", GTK_STOCK_DIRECTORY,
+                 "stock-id", "gtk-directory",
                  "stock-size", GTK_ICON_SIZE_MENU,
                  NULL);
 
@@ -1487,7 +1483,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 0);
     
-    imailbox->refresh_btn = btn = gtk_button_new_from_stock(GTK_STOCK_REFRESH);
+    imailbox->refresh_btn = btn = gtk_button_new_from_stock("gtk-refresh");
     gtk_widget_show(btn);
     gtk_box_pack_start(GTK_BOX(vbox), btn, FALSE, FALSE, 0);
     g_object_set_data(G_OBJECT(btn), "mailwatch-treeview", treeview);
@@ -1582,7 +1578,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     dlg = gtk_dialog_new_with_buttons(_("Advanced IMAP Options"),
             GTK_WINDOW(gtk_widget_get_toplevel(w)),
             GTK_DIALOG_DESTROY_WITH_PARENT,
-            GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT, NULL);
+            "window-close", GTK_RESPONSE_ACCEPT, NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
     
     topvbox = gtk_vbox_new(FALSE, BORDER/2);
@@ -1761,14 +1757,14 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, FALSE, FALSE, 0);
     
     btn = xfce_mailwatch_custom_button_new(_("_Advanced..."),
-            GTK_STOCK_PREFERENCES);
+            "system-preferences");
     gtk_widget_show(btn);
     gtk_box_pack_start(GTK_BOX(hbox), btn, FALSE, FALSE, 0);
     g_signal_connect(G_OBJECT(btn), "clicked",
             G_CALLBACK(imap_config_advanced_btn_clicked_cb), imailbox);
     
     btn = xfce_mailwatch_custom_button_new(_("New mail _folders..."),
-            GTK_STOCK_DIRECTORY);
+            "gtk-directory");
     gtk_widget_show(btn);
     gtk_box_pack_start(GTK_BOX(hbox), btn, FALSE, FALSE, 0);
     g_signal_connect(G_OBJECT(btn), "clicked",

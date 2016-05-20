@@ -746,7 +746,7 @@ pop3_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     dlg = gtk_dialog_new_with_buttons(_("Advanced POP3 Options"),
             GTK_WINDOW(gtk_widget_get_toplevel(w)),
             GTK_DIALOG_DESTROY_WITH_PARENT,
-            GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT, NULL);
+            "window-close", GTK_RESPONSE_ACCEPT, NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
     
     topvbox = gtk_vbox_new(FALSE, BORDER/2);
@@ -902,7 +902,7 @@ pop3_get_setup_page(XfceMailwatchMailbox *mailbox)
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, FALSE, FALSE, 0);
     
     btn = xfce_mailwatch_custom_button_new(_("_Advanced..."),
-            GTK_STOCK_PREFERENCES);
+            "preferences-system");
     gtk_widget_show(btn);
     gtk_box_pack_start(GTK_BOX(hbox), btn, FALSE, FALSE, 0);
     g_signal_connect(G_OBJECT(btn), "clicked",
