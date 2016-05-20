@@ -747,7 +747,8 @@ config_ask_combo_changed_cb(GtkComboBox *cb, gpointer user_data)
     XfceMailwatch *mailwatch = user_data;
     gint active_index = gtk_combo_box_get_active(cb);
     XfceMailwatchMailboxType *mbox_type;
-    GtkRequisition req;
+    GtkRequisition minimum_size;
+    GtkRequisition natural_size;
     
     if(active_index >= (gint)g_list_length(mailwatch->mailbox_types))
         return;
@@ -757,7 +758,7 @@ config_ask_combo_changed_cb(GtkComboBox *cb, gpointer user_data)
     gtk_label_set_text(GTK_LABEL(mailwatch->mbox_types_lbl),
             _(mbox_type->description));
     gtk_widget_set_size_request(mailwatch->mbox_types_lbl, -1, -1);
-    gtk_widget_size_request(mailwatch->mbox_types_lbl, &req);
+    gtk_widget_get_preferred_size (GTK_WIDGET (mailwatch->mbox_types_lbl), &minimum_size, &natural_size);
 }
     
 
