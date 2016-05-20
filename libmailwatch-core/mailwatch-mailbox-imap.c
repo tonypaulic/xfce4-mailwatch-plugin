@@ -1401,8 +1401,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     }
     
     dlg = gtk_dialog_new_with_buttons(_("Set New Mail Folders"), toplevel,
-                                      GTK_DIALOG_DESTROY_WITH_PARENT
-                                      | GTK_DIALOG_NO_SEPARATOR,
+                                      GTK_DIALOG_DESTROY_WITH_PARENT,
                                       GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT,
                                       NULL);
     imailbox->folder_tree_dialog = dlg;
@@ -1582,7 +1581,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     
     dlg = gtk_dialog_new_with_buttons(_("Advanced IMAP Options"),
             GTK_WINDOW(gtk_widget_get_toplevel(w)),
-            GTK_DIALOG_DESTROY_WITH_PARENT|GTK_DIALOG_NO_SEPARATOR,
+            GTK_DIALOG_DESTROY_WITH_PARENT,
             GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT, NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
     

@@ -629,12 +629,12 @@ config_run_addedit_window(const gchar *title, GtkWindow *parent,
     if(!mailbox_name) {
         /* add window */
         dlg = gtk_dialog_new_with_buttons(title, parent,
-                GTK_DIALOG_NO_SEPARATOR, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                GTK_DIALOG_DESTROY_WITH_PARENT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                 GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
     } else {
         /* edit window */
         dlg = gtk_dialog_new_with_buttons(title, parent,
-                GTK_DIALOG_NO_SEPARATOR, GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT,
+                GTK_DIALOG_DESTROY_WITH_PARENT, GTK_STOCK_CLOSE, GTK_RESPONSE_ACCEPT,
                 NULL);
     }
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
@@ -770,7 +770,7 @@ config_ask_new_mailbox_type(XfceMailwatch *mailwatch, GtkWindow *parent)
     GList *l;
     
     dlg = gtk_dialog_new_with_buttons(_("Select Mailbox Type"), parent,
-            GTK_DIALOG_NO_SEPARATOR, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+            GTK_DIALOG_DESTROY_WITH_PARENT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
             GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
     
