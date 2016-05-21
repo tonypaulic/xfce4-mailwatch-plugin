@@ -1401,7 +1401,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
                                       "window-close", GTK_RESPONSE_ACCEPT,
                                       NULL);
     imailbox->folder_tree_dialog = dlg;
-    topvbox = gtk_vbox_new(FALSE, BORDER/2);
+    topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_container_set_border_width(GTK_CONTAINER(topvbox), BORDER/2);
     gtk_widget_show(topvbox);
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)), topvbox, TRUE, TRUE, 0);
@@ -1413,7 +1413,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_widget_show(frame);
     gtk_box_pack_start(GTK_BOX(topvbox), frame, TRUE, TRUE, 0);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_container_add(GTK_CONTAINER(frame_bin), hbox);
     
@@ -1479,7 +1479,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
     gtk_tree_selection_unselect_all(sel);
     
-    vbox = gtk_vbox_new(FALSE, BORDER/2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_widget_show(vbox);
     gtk_box_pack_start(GTK_BOX(hbox), vbox, FALSE, FALSE, 0);
     
@@ -1581,7 +1581,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
             "window-close", GTK_RESPONSE_ACCEPT, NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_ACCEPT);
     
-    topvbox = gtk_vbox_new(FALSE, BORDER/2);
+    topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_container_set_border_width(GTK_CONTAINER(topvbox), BORDER/2);
     gtk_widget_show(topvbox);
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)), topvbox, TRUE, TRUE, 0);
@@ -1590,7 +1590,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_widget_show(frame);
     gtk_box_pack_start(GTK_BOX(topvbox), frame, FALSE, FALSE, 0);
     
-    vbox = gtk_vbox_new(FALSE, BORDER/2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_widget_show(vbox);
     gtk_container_add(GTK_CONTAINER(frame_bin), vbox);
     
@@ -1609,7 +1609,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     g_signal_connect(G_OBJECT(combo), "changed",
             G_CALLBACK(imap_config_security_combo_changed_cb), imailbox);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
     
@@ -1647,7 +1647,7 @@ imap_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_widget_show(frame);
     gtk_box_pack_start(GTK_BOX(topvbox), frame, FALSE, FALSE, 0);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_container_add(GTK_CONTAINER(frame_bin), hbox);
     
@@ -1678,7 +1678,7 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
               *sbtn;
     GtkSizeGroup *sg;
     
-    topvbox = gtk_vbox_new(FALSE, BORDER/2);
+    topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_widget_show(topvbox);
     
     frame = xfce_gtk_frame_box_new(_("IMAP Server"), &frame_bin);
@@ -1687,11 +1687,11 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
     
     sg = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
     
-    vbox = gtk_vbox_new(FALSE, BORDER/2);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_widget_show(vbox);
     gtk_container_add(GTK_CONTAINER(frame_bin), vbox);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
     
@@ -1711,7 +1711,7 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
             G_CALLBACK(imap_host_entry_focus_out_cb), imailbox);
     gtk_label_set_mnemonic_widget(GTK_LABEL(lbl), entry);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
     
@@ -1731,7 +1731,7 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
             G_CALLBACK(imap_username_entry_focus_out_cb), imailbox);
     gtk_label_set_mnemonic_widget(GTK_LABEL(lbl), entry);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
     
@@ -1752,7 +1752,7 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
             G_CALLBACK(imap_password_entry_focus_out_cb), imailbox);
     gtk_label_set_mnemonic_widget(GTK_LABEL(lbl), entry);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, FALSE, FALSE, 0);
     
@@ -1770,7 +1770,7 @@ imap_get_setup_page(XfceMailwatchMailbox *mailbox)
     g_signal_connect(G_OBJECT(btn), "clicked",
             G_CALLBACK(imap_config_newmailfolders_btn_clicked_cb), imailbox);
     
-    hbox = gtk_hbox_new(FALSE, BORDER/2);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
     gtk_box_pack_start(GTK_BOX(topvbox), hbox, FALSE, FALSE, 0);
     
