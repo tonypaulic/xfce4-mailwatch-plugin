@@ -589,7 +589,7 @@ mh_get_setup_page( XfceMailwatchMailbox *mailbox )
     
     label = gtk_label_new_with_mnemonic( _( "_Interval:" ) );
     gtk_widget_show( label );
-    gtk_misc_set_alignment( GTK_MISC( label ), 1, 0.5 );
+    gtk_widet_set_halign(label, GTK_ALIGN_CENTER);
     gtk_box_pack_start( GTK_BOX( hbox ), label, FALSE, FALSE, 0 );
 
     spinner = gtk_spin_button_new_with_range( 1.0, 1440.0, 1.0 );
