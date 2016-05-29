@@ -395,7 +395,7 @@ gmail_check_mail_timeout(gpointer data)
         return TRUE;
     }
 
-    th = g_thread_new(gmail_check_mail_th, gmailbox, FALSE, NULL);
+    th = g_thread_new(NULL, gmail_check_mail_th, gmailbox);
     g_atomic_pointer_set(&gmailbox->th, th);
 
     return TRUE;

@@ -226,7 +226,7 @@ mbox_check_mail_timeout( gpointer data )
         return TRUE;
     }
 
-    th = g_thread_new( mbox_check_mail_thread, mbox, FALSE, NULL );
+    th = g_thread_new(NULL, mbox_check_mail_thread, mbox);
     g_atomic_pointer_set( &mbox->thread, th );
 
     return TRUE;
