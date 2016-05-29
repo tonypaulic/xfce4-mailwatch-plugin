@@ -198,7 +198,7 @@ maildir_new( XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type )
     maildir->mailwatch      = mailwatch;
     maildir->path           = NULL;
     maildir->interval       = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
-    maildir->mutex          = g_mutex_new();
+    maildir->mutex          = g_mutex_init();
     
     return ( (XfceMailwatchMailbox *) maildir );
 }

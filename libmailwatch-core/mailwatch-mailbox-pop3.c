@@ -528,7 +528,7 @@ pop3_mailbox_new(XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type)
     pmailbox->mailwatch = mailwatch;
     pmailbox->timeout = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
     pmailbox->use_standard_port = TRUE;
-    pmailbox->config_mx = g_mutex_new();
+    pmailbox->config_mx = g_mutex_init();
 
     xfce_mailwatch_net_conn_init();
     
@@ -549,7 +549,7 @@ pop3_check_mail_timeout(gpointer data)
         return TRUE;
     }
 
-    new_th = g_thread_create(pop3_check_mail_th, pmailbox, FALSE, NULL);
+    new_th = g_thread_new(pop3_check_mail_th, pmailbox, FALSE, NULL);
     g_atomic_pointer_set(&pmailbox->th, new_th);
 
     return TRUE;
@@ -752,7 +752,7 @@ pop3_config_advanced_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_container_set_border_width(GTK_CONTAINER(topvbox), BORDER/2);
     gtk_widget_show(topvbox);
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox), topvbox, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)), topvbox, TRUE, TRUE, 0);
     
     frame = xfce_gtk_frame_box_new(_("Connection"), &frame_bin);
     gtk_widget_show(frame);
@@ -1023,7 +1023,7 @@ pop3_mailbox_free(XfceMailwatchMailbox *mailbox)
     while(g_atomic_pointer_get(&pmailbox->th))
         g_thread_yield();
     
-    g_mutex_free(pmailbox->config_mx);
+    g_mutex_clear(pmailbox->config_mx);
     
     g_free(pmailbox->host);
     g_free(pmailbox->username);

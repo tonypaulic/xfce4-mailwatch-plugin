@@ -162,7 +162,7 @@ my_g_mutex_init(void **priv)
 {
     GMutex **gmx = (GMutex **)priv;
     
-    *gmx = g_mutex_new();
+    *gmx = g_mutex_init();
     if(!*gmx)
         return -1;
     return 0;
@@ -173,7 +173,7 @@ my_g_mutex_destroy(void **priv)
 {
     GMutex **gmx = (GMutex **)priv;
     
-    g_mutex_free(*gmx);
+    g_mutex_clear(*gmx);
     return 0;
 }
 

@@ -395,7 +395,7 @@ gmail_check_mail_timeout(gpointer data)
         return TRUE;
     }
 
-    th = g_thread_create(gmail_check_mail_th, gmailbox, FALSE, NULL);
+    th = g_thread_new(gmail_check_mail_th, gmailbox, FALSE, NULL);
     g_atomic_pointer_set(&gmailbox->th, th);
 
     return TRUE;
@@ -408,7 +408,7 @@ gmail_mailbox_new(XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type)
     gmailbox->mailbox.type = type;
     gmailbox->mailwatch = mailwatch;
     gmailbox->timeout = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
-    gmailbox->config_mx = g_mutex_new();
+    gmailbox->config_mx = g_mutex_init();
 
     xfce_mailwatch_net_conn_init();
     
@@ -655,7 +655,7 @@ gmail_mailbox_free(XfceMailwatchMailbox *mailbox)
     while(g_atomic_pointer_get(&gmailbox->th))
         g_thread_yield();
     
-    g_mutex_free(gmailbox->config_mx);
+    g_mutex_clear(gmailbox->config_mx);
     
     g_free(gmailbox->username);
     g_free(gmailbox->password);

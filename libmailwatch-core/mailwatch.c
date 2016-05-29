@@ -117,16 +117,13 @@ xfce_mailwatch_new(void)
     xfce_textdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
     if(!g_thread_supported()) {
-        g_thread_init(NULL);
-        if(!g_thread_supported()) {
-            g_critical(_("xfce4-mailwatch-plugin: Unable to initialise GThread support.  This is likely a problem with your GLib install."));
-            return NULL;
-        }
+        g_critical(_("xfce4-mailwatch-plugin: Unable to initialise GThread support.  This is likely a problem with your GLib install."));
+        return NULL;
     }
     
     mailwatch = g_new0(XfceMailwatch, 1);
     mailwatch->mailbox_types = mailwatch_load_mailbox_types();
-    mailwatch->mailboxes_mx = g_mutex_new();
+    mailwatch->mailboxes_mx = g_mutex_init();
     
     return mailwatch;
 }
@@ -160,7 +157,7 @@ xfce_mailwatch_destroy(XfceMailwatch *mailwatch)
         g_list_free(stuff_to_free);
     
     /* really.  SO SO done. */
-    g_mutex_free(mailwatch->mailboxes_mx);
+    g_mutex_clear(mailwatch->mailboxes_mx);
     
     g_list_free(mailwatch->mailbox_types);
     g_free(mailwatch->config_file);
@@ -642,7 +639,7 @@ config_run_addedit_window(const gchar *title, GtkWindow *parent,
     topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_container_set_border_width(GTK_CONTAINER(topvbox), BORDER);
     gtk_widget_show(topvbox);
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox), topvbox, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)), topvbox, TRUE, TRUE, 0);
     
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BORDER/2);
     gtk_widget_show(hbox);
@@ -777,7 +774,7 @@ config_ask_new_mailbox_type(XfceMailwatch *mailwatch, GtkWindow *parent)
     topvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, BORDER/2);
     gtk_container_set_border_width(GTK_CONTAINER(topvbox), BORDER);
     gtk_widget_show(topvbox);
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox), topvbox, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)), topvbox, TRUE, TRUE, 0);
     
     lbl = gtk_label_new(_("Select a mailbox type.  A description of the type will appear below."));
     gtk_label_set_line_wrap(GTK_LABEL(lbl), TRUE);

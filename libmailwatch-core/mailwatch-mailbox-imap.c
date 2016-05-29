@@ -707,7 +707,7 @@ imap_mailbox_new(XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type)
     imailbox->mailwatch = mailwatch;
     imailbox->timeout = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
     imailbox->use_standard_port = TRUE;
-    imailbox->config_mx = g_mutex_new();
+    imailbox->config_mx = g_mutex_init();
 
     /* this is a bit of a hack; should really fetch the folder list and
      * try to find the inbox, as the inbox might not be named "INBOX" */
@@ -732,7 +732,7 @@ imap_check_mail_timeout(gpointer data)
         return TRUE;
     }
 
-    th = g_thread_create(imap_check_mail_th, imailbox, FALSE, NULL);
+    th = g_thread_new(imap_check_mail_th, imailbox, FALSE, NULL);
     g_atomic_pointer_set(&imailbox->th, th);
 
     return TRUE;
@@ -1288,7 +1288,7 @@ imap_config_refresh_btn_clicked_cb(GtkWidget *w, gpointer user_data)
                 "style-set", TRUE, NULL);
 
     g_atomic_int_set(&imailbox->folder_tree_running, TRUE);
-    th = g_thread_create(imap_populate_folder_tree_th,
+    th = g_thread_new(imap_populate_folder_tree_th,
                          imailbox, FALSE, NULL);
     g_atomic_pointer_set(&imailbox->folder_tree_th, th);
 }
@@ -1495,7 +1495,7 @@ imap_config_newmailfolders_btn_clicked_cb(GtkWidget *w, gpointer user_data)
     gtk_widget_set_sensitive(btn, FALSE);
 
     g_atomic_int_set(&imailbox->folder_tree_running, TRUE);
-    th = g_thread_create(imap_populate_folder_tree_th,
+    th = g_thread_new(imap_populate_folder_tree_th,
                          imailbox, FALSE, NULL);
     g_atomic_pointer_set(&imailbox->folder_tree_th, th);
     
@@ -1941,7 +1941,7 @@ imap_mailbox_free(XfceMailwatchMailbox *mailbox)
     while(g_atomic_pointer_get(&imailbox->th))
         g_thread_yield();
     
-    g_mutex_free(imailbox->config_mx);
+    g_mutex_clear(imailbox->config_mx);
     
     g_free(imailbox->host);
     g_free(imailbox->username);
