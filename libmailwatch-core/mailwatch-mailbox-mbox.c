@@ -241,7 +241,7 @@ mbox_new( XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type )
 
     mbox->mailwatch     = mailwatch;
 
-    g_mutex_init(&mbox->settings_mutex);
+    g_mutex_init(mbox->settings_mutex);
     mbox->interval = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
 
     return ( (XfceMailwatchMailbox *) mbox );

@@ -123,7 +123,7 @@ xfce_mailwatch_new(void)
     
     mailwatch = g_new0(XfceMailwatch, 1);
     mailwatch->mailbox_types = mailwatch_load_mailbox_types();
-    g_mutex_init(&mailwatch->mailboxes_mx);
+    g_mutex_init(mailwatch->mailboxes_mx);
     
     return mailwatch;
 }

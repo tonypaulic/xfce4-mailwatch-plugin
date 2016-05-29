@@ -162,7 +162,7 @@ my_g_mutex_init(void **priv)
 {
     GMutex **gmx = (GMutex **)priv;
     
-    g_mutex_init(gmx);
+    g_mutex_init(*gmx);
     if(!*gmx)
         return -1;
     return 0;

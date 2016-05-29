@@ -707,7 +707,7 @@ imap_mailbox_new(XfceMailwatch *mailwatch, XfceMailwatchMailboxType *type)
     imailbox->mailwatch = mailwatch;
     imailbox->timeout = XFCE_MAILWATCH_DEFAULT_TIMEOUT;
     imailbox->use_standard_port = TRUE;
-    g_mutex_init(&imailbox->config_mx);
+    g_mutex_init(imailbox->config_mx);
 
     /* this is a bit of a hack; should really fetch the folder list and
      * try to find the inbox, as the inbox might not be named "INBOX" */
